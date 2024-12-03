@@ -42,28 +42,28 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
   };
 
   const handleEditar = () => {
-    //console.log(`id: ${idTarefa} \n titulo: ${tituloTarefa} \n descrição: ${descricaoTarefa} \n inicio: ${inicioTarefa} \n fim: ${fimTarefa} \n recurso: ${recursoTarefa} \n status: ${statusTarefa}`);
-    //console.log('idTarefaSelecionada: ' + idTarefaSelecionada);
+    if (!tituloTarefa || !inicioTarefa || !fimTarefa) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+  
     setTarefas(current =>
       current.map(obj => {
-        if (obj.idTarefa === idTarefaSelecionada) {
-          console.log('obj: ' + JSON.stringify(obj));          
+        if (obj.idTarefa === idTarefaSelecionada) {         
           return {...obj, 
-              idTarefa:idTarefaSelecionada,
-              tituloTarefa:tituloTarefa,
-              descricaoTarefa:descricaoTarefa,
-              inicioTarefa:inicioTarefa,
-              fimTarefa:fimTarefa,
-              recursoTarefa:recursoTarefa,
-              statusTarefa:statusTarefa
+            idTarefa:idTarefaSelecionada,
+            tituloTarefa:tituloTarefa,
+            descricaoTarefa:descricaoTarefa,
+            inicioTarefa:inicioTarefa,
+            fimTarefa:fimTarefa,
+            recursoTarefa:recursoTarefa,
+            statusTarefa:statusTarefa
           };
         }
-
         return obj;
       }),
     );
-
-    //console.log(`Tarefas Editadas: ` + JSON.stringify(tarefas));
+  
     handleCloseEditar();
   };
 
@@ -79,9 +79,9 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
           maxWidth: '100%',
         }}>
           <Grid item xs={12}>
-            <FormControl fullWidth>
-              <Input id="tarefa_titulo" aria-describedby="tarefa_titulo_helper_text" value={tituloTarefa} onChange={e => { setTituloTarefa(e.target.value) }} />
-              <FormHelperText id="tarefa_titulo_helper_text">Título da Tarefa.</FormHelperText>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <Input id="tarefa_titulo" aria-label="Título da Tarefa" value={tituloTarefa} onChange={e => setTituloTarefa(e.target.value)} />
+              <FormHelperText>Título da Tarefa.</FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={12}>  
